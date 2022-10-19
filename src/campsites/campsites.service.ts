@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { CreateCampsiteDto } from './dto/create-campsite.dto';
 import { UpdateCampsiteDto } from './dto/update-campsite.dto';
 
 @Injectable()
 export class CampsitesService {
+  constructor(private readonly prisma:PrismaService){}
+
   create(createCampsiteDto: CreateCampsiteDto) {
-    return 'This action adds a new campsite';
+    return "Post request not allowed on /campsites"
+    // return this.prisma.campsite.create({data:createCampsiteDto})
   }
 
   findAll() {
-    return `This action returns all campsites`;
+    return this.prisma.campsite.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} campsite`;
+  findOne(id: string) {
+    return this.prisma.campsite.findUnique({where:{id}})
   }
 
-  update(id: number, updateCampsiteDto: UpdateCampsiteDto) {
+  update(id: string, updateCampsiteDto: UpdateCampsiteDto) {
     return `This action updates a #${id} campsite`;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} campsite`;
   }
 }
