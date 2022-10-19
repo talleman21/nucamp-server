@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { CampsitesService } from './campsites.service';
 import { CreateCampsiteDto } from './dto/create-campsite.dto';
-import { UpdateCampsiteDto } from './dto/update-campsite.dto';
 
 @Controller('campsites')
 export class CampsitesController {
@@ -19,16 +18,16 @@ export class CampsitesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.campsitesService.findOne(+id);
+    return this.campsitesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCampsiteDto: UpdateCampsiteDto) {
-    return this.campsitesService.update(+id, updateCampsiteDto);
+  @Put(':id')
+  update() {
+    return 'put route not supported on /campsites'
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.campsitesService.remove(+id);
+    return "delete route not supported on /campsites"
   }
 }
