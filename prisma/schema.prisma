@@ -18,3 +18,11 @@ model campsite {
   featured Boolean
   description String
 }
+
+model promotion {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  image String
+  featured Boolean
+  description String
+}

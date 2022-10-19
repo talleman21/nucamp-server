@@ -1,26 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
 
 @Injectable()
 export class PromotionsService {
+
+  constructor(private readonly prisma:PrismaService){}
+
   create(createPromotionDto: CreatePromotionDto) {
-    return 'This action adds a new promotion';
+    return this.prisma.promotion.create({data:createPromotionDto})
   }
 
   findAll() {
-    return `This action returns all promotions`;
+    return this.prisma.promotion.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} promotion`;
-  }
-
-  update(id: number, updatePromotionDto: UpdatePromotionDto) {
-    return `This action updates a #${id} promotion`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} promotion`;
+  findOne(id: string) {
+    return this.prisma.promotion.findUnique({where:{id}})
   }
 }
